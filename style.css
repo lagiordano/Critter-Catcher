@@ -1,16 +1,18 @@
 
 
 
-.collapsed {
-    color: black;
-    font-size: 15px;
+
+details.collapsed {
+    font-weight:normal;
 }
 
 
-.expanded {
-    color: green;
-    font-size: 20px;
+details.expanded {
+    font-weight:bold;
 }
+
+
+
 
 
 

@@ -1,71 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <title>Phase 1 Project</title>
+        <title>Critter Catcher</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+        <script defer src="./index.js"></script>
     </head>
     <body>
         <header>
-            <h1>Animal Crossing</h1>
-        
+            <div class="container">
+                <div class="row">
+                    <h1 class="col-12 text-center p-3 p-md-4 p-lg-5">CRITTER CATCHER</h1>
+                </div>
+            </div>
         </header>
         <main>
             <section>
-                <!-- <p>Between the fish, sea creatures, bugs, and fossils, there are over 250 things to be found in the Animal Crossing world!</p> -->
-                <p>There are now 200 creatures to find in the Animal Crossing world, but they are not always easy to hunt down! </p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <p>There are now 200 creatures to find in the Animal Crossing world! But when each appears at a different time of year and day, catching them can be easier said than done...</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 p-1 p-md-2 p-lg-3 text-center">
+                            <h4>Critter Catcher to the rescue!</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p>Browse by category and filter by month available to find out more about what you're missing.</p>
+                            <p>Add creatures to your Catch-List at the bottom of the page and you'll be filling in your Critterpedia in no time!</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="d-flex justify-content-center p-1 p-md-3 p-lg-4">
+                            <div class="btn-group col-11 col-sm-11 col-md-10 col-lg-8" role="group" id="creature-buttons">
+                                <button type="button" class="btn btn-outline-success">Fish</button>
+                                <button type="button" class="btn btn-outline-success">Sea</button>
+                                <button type="button" class="btn btn-outline-success">Bugs</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="d-flex justify-content-center p-2 p-md-3 p-lg-4">
+                            <form id="filter-dropdown" class="col-10 col-sm-10 col-md-7 col-lg-6">
+                                <select name="months" id="months" class="form-select">
+                                    <option value="select-month">Select Month</option>
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                
+                    <ul id="creature-list" class="list-group row align-items-center mx-1 pb-1 pb-md-2 pb-lg-3">
+                        <!-- creature list here -->
+                    </ul>
+                    <ul id="filterted-creature-list" class="list-group row align-items-center mx-1 pb-1 pb-md-2 pb-lg-3">
+                        <!-- filtered creatures listed here -->
+                    </ul>
+                </div>
             </section>
             <section>
-                <div>
-                <h2>Let's Get Started!</h2>
-                <p>The list of creatures in each category follows the order of your Critterpedia from top-to-bottom, then left-to-right.</p>
-                <div id="creature-buttons">
-                    <button class="btn">Fish</button>
-                    <button class="btn">Sea</button>
-                    <button class="btn">Bugs</button>
-                </div>
-                <form id="filter-dropdown">
-                    
-                    <label for="months">Filter by month available:</label>
-                    <select name="months" id="months">
-                        <option value="select-month">Select month</option>
-                        <option value="1">January</option>
-                        <option value="2">February</option>
-                        <option value="3">March</option>
-                        <option value="4">April</option>
-                        <option value="5">May</option>
-                        <option value="6">June</option>
-                        <option value="7">July</option>
-                        <option value="8">August</option>
-                        <option value="9">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                    </select>
-                </form>
-                
-                <ul id="creature-list">
-                    <!-- creature list here -->
-                </ul>
-                <ul id="filterted-creature-list">
-                    <!-- filtered creatures listed here -->
-                </ul>
-                </div>
-                <div>
-                    <!-- Container here for card to appear -->
-                    <!-- button to add to section below, "wish list" -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 p-2 p-md-3 p-lg-4 text-center">
+                            <h3>Catch-List:</h3>
+                        </div>
+                    </div>
+                    <div id="find-container" class="row d-flex justify-content-center">
+                        <!-- cards added from creature details -->
+                        
+                    </div>
                 </div>
             </section>
-            <section id="find-list">
-                <h2>Items to find:</h2>
-                <div id="find-container"></div>
-                <!-- cards loaded in from above -->
-                <!--  Toggle function to "tick" off and untick off? Or button to remove -->
-            </section>
-            
         </main>
         <footer>
+            <div class="container">
+                <div class="row">
+                        <p class="col-12 text-center">Link to stuff later</p>
+                </div>
+            </div>
 
         </footer>
-    <script src="./index.js"></script>
     </body>
 </html>
