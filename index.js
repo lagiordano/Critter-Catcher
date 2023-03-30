@@ -5,7 +5,9 @@ function initialize () {
     const ul = document.querySelector("#creature-list");
     const creatureButtons = document.querySelector("#creature-buttons");
     const dropDown = document.querySelector("#months");
-    // let categoryObject = {};
+    let categoryObject ={};
+    
+    
     
 
     // Create list by category
@@ -68,7 +70,6 @@ function initialize () {
 
             // Wish list 
             details.addEventListener("click", (e) => {
-
                 wishListGenerator(e, details);
             });
 
@@ -117,7 +118,7 @@ function initialize () {
                         return " December";
                         break;
                 };
-            })
+            });
             monthAvailable = newArr.toString();
         };
         return `
@@ -146,26 +147,23 @@ function initialize () {
     // Filter by Month
     function filterList (categoryObject, selected) {
         let filtered = {};
+        selected = parseInt(selected, 10);
         for (let item in categoryObject) {
             creatureObject = {...categoryObject[item]};
             let monthArray = creatureObject["availability"]["month-array-southern"];
-            let monthString = monthArray.toString();
-            if(monthString.indexOf(selected) !== -1) {
+            if(monthArray.indexOf(selected) !== -1) {
                 filtered[item] = creatureObject;
-            }
-            
-            
+            };
         };
         return filtered;
-        
-    }
+    };
 
 
     //Add and remove form wish list
     function wishListGenerator(e, details) {
         if (e.target.tagName === "BUTTON") {
             let findContainer = document.querySelector("#find-container");
-            
+            findContainer.querySelector("p").style.display = "none";
             findContainer.classList.add("card-deck");
             let catchCard = document.createElement("div");
             catchCard.innerHTML = details.innerHTML;
