@@ -134,7 +134,8 @@ function initialize () {
                         <p class="card-text text-center">Times: ${timeAvailable}</p>
                         <p class="card-text text-center">Sells for: $${creatureObject["price"]}</p>
                         <div class="d-flex justify-content-center">
-                            <button class=" btn btn-outline-success align-items-center addInfo" >Add to Catch-List</button>
+                            <button class="btn btn-outline-success align-items-center addInfo mx-1 mx-md-2 mx-lg-3 list-btn" >Add to List</button>
+                            <button class="btn btn-success align-items-center mx-md-2 mx-lg-3 to-list"><a class="text-decoration-none text-white" href="#heading1">Go to List</a></button>
                         </div>
                     </div>
                 </div>
@@ -161,7 +162,7 @@ function initialize () {
 
     //Add and remove form wish list
     function wishListGenerator(e, details) {
-        if (e.target.tagName === "BUTTON") {
+        if (e.target.classList.contains("list-btn")) {
             let findContainer = document.querySelector("#find-container");
             findContainer.querySelector("p").style.display = "none";
             findContainer.classList.add("card-deck");
@@ -171,7 +172,8 @@ function initialize () {
             catchCard.removeChild(catchCard.firstElementChild);
             findContainer.appendChild(catchCard);
             catchCard.querySelector("#card-sizes").classList.remove("card", "col-12", "col-sm-11", "col-md-9", "col-lg-8", "col-xl-7");
-            catchCard.querySelector("button").classList.replace("addInfo", "found-btn");
+            catchCard.querySelector(".to-list").remove();
+            catchCard.querySelector(".list-btn").classList.replace("addInfo", "found-btn");
             let foundButton = catchCard.querySelector(".found-btn");
             foundButton.textContent = "Found!";
             foundButton.addEventListener("click", () => {
