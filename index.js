@@ -25,7 +25,7 @@ function initialize () {
     // Fetch data and calls populateList function 
     function initiateList (creature) {
         let type = creature.toLowerCase();
-        fetch(`http://acnhapi.com/v1/${type}`)
+        fetch(`https://acnhapi.com/v1/${type}`)
         .then(res => res.json())
         .then(creatureData => {
             categoryObject = {...creatureData};
