@@ -40,7 +40,7 @@
         font-size:2rem;
     }
     div p {
-        font-size:1.5rem;
+        font-size:1.3rem;
     }
     #heading1 {
         font-size:3rem;
@@ -88,13 +88,17 @@ header h1 {
     font-family: 'Righteous';
 }
 
+div h5 {
+    font-weight: bold;
+}
+
 
 .btn-group {
-    background-color:rgb(255, 255, 255);
+    background-color:rgba(255, 255, 255, 0.63);
 }
 
 .text-background {
-    background-color:rgb(255, 255, 255);
+    background-color:rgba(255, 255, 255, 0.63);
     padding:1%;
     border:thin solid rgb(33, 137, 86);
 }
@@ -102,6 +106,7 @@ header h1 {
 #months {
     border:thin solid rgb(33, 137, 86);
     color:rgb(33, 137, 86);
+    background-color:rgba(255, 255, 255, 0.63);
 }
 
 
@@ -111,6 +116,7 @@ header h1 {
     box-shadow:none;
     color:rgb(33, 137, 86);
     outline:0;
+
 }
 
 
@@ -118,16 +124,19 @@ header h1 {
 details.collapsed {
     color: rgb(33, 137, 86);
     border:thin solid rgb(33, 137, 86);
+    background-color:rgba(255, 255, 255, 0.63);
 }
 
 
 details.expanded {
     color: rgb(33, 137, 86);
     border:thin solid rgb(33, 137, 86);
+    background-color:rgba(255, 255, 255, 0.63);
 }
 
 details.expanded summary {
     font-weight:bold;
+    background-color:rgba(255, 255, 255, 0.63);
 }
 
 div.card {

@@ -168,7 +168,7 @@ function initialize () {
             findContainer.classList.add("card-deck");
             let catchCard = document.createElement("div");
             catchCard.innerHTML = details.innerHTML;
-            catchCard.classList.add("card", "col-11", "col-md-6", "col-lg-4")
+            catchCard.classList.add("card", "col-10", "col-md-6", "col-lg-4");
             catchCard.removeChild(catchCard.firstElementChild);
             findContainer.appendChild(catchCard);
             catchCard.querySelector("#card-sizes").classList.remove("card", "col-12", "col-sm-11", "col-md-9", "col-lg-8", "col-xl-7");
