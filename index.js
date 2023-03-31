@@ -1,11 +1,12 @@
-document.addEventListener("DOMContentLoaded", initialize) 
+document.addEventListener("DOMContentLoaded", initialize);
 
 function initialize () {
 
     const ul = document.querySelector("#creature-list");
     const creatureButtons = document.querySelector("#creature-buttons");
     const dropDown = document.querySelector("#months");
-    let categoryObject ={};
+    let errorMsg = document.querySelector("#error-msg");
+    
     
     
     
@@ -13,6 +14,7 @@ function initialize () {
     // Create list by category
     creatureButtons.addEventListener("click", e => {
         if (e.target.tagName === "BUTTON") {
+            errorMsg.classList.replace("d-block", "d-none");
             ul.textContent = "";
             let type = e.target.textContent;
             initiateList(type);
@@ -28,7 +30,7 @@ function initialize () {
         fetch(`https://acnhapi.com/v1/${type}`)
         .then(res => res.json())
         .then(creatureData => {
-            categoryObject = {...creatureData};
+            let categoryObject = {...creatureData};
 
            
 
@@ -42,6 +44,10 @@ function initialize () {
                 populateList(filteredObject);
             });
 
+        })
+        .catch( () => {
+            errorMsg.classList.add("d-block")
+            errorMsg.textContent = "Sorry, there's been an error gathering up those creatures for you.";
         });
         
         
@@ -124,7 +130,7 @@ function initialize () {
         return `
         <summary class="summary text-capitalize pb-2">${creatureObject["name"]["name-EUen"]}</summary>
             <div class=" card-deck d-flex justify-content-center">
-                <div id="card-sizes" class="card">
+                <div id="card-sizes" class="card col-11 col-sm-10 col-md-9 col-lg-8 col-xl-7">
                     <div class="card-img-top d-flex justify-content-center">
                         <img src="${creatureObject["icon_uri"]}">
                     </div>
@@ -141,6 +147,7 @@ function initialize () {
                 </div>
             </div>        
         `
+        "col-12", "col-sm-11", "col-md-9", "col-lg-8", "col-xl-7"
     };
 
 
@@ -171,7 +178,7 @@ function initialize () {
             catchCard.classList.add("card", "col-10", "col-md-6", "col-lg-4");
             catchCard.removeChild(catchCard.firstElementChild);
             findContainer.appendChild(catchCard);
-            catchCard.querySelector("#card-sizes").classList.remove("card", "col-12", "col-sm-11", "col-md-9", "col-lg-8", "col-xl-7");
+            catchCard.querySelector("#card-sizes").classList.remove("card", "col-11", "col-sm-10", "col-md-9", "col-lg-8", "col-xl-7");
             catchCard.querySelector(".to-list").remove();
             catchCard.querySelector(".list-btn").classList.replace("addInfo", "found-btn");
             let foundButton = catchCard.querySelector(".found-btn");
