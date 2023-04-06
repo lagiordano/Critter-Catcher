@@ -23,8 +23,8 @@
                             <h5 class="col-11 col-md-10 col-lg-9 text-center text-success pb-2 pb-md-3 pb-lg-4">Fill in your Animal Crossing: New Horizon Critterpedia in no time!</h5>
                         </div>
                         <div class="row d-flex justify-content-center">
-                            <p class="col-11 col-md-10 col-lg-9 text-center text-background rounded m-1 m-sm2 m-md-3 m-lg-4">There are now 200 creatures to find in the Animal Crossing world! Get started by picking a category and filtering by
-                                month. You can then add your missing creatures to your Catch-List.
+                            <p class="col-11 col-md-10 col-lg-9 text-center text-background rounded m-1 m-sm2 m-md-3 m-lg-4">There are now 200 creatures to find in the Animal Crossing world. 
+                                Pick a category below to get started. You can then add creatures to your Catch-List.
                             </p>
                         </div>
                         <div class="row">
@@ -39,7 +39,10 @@
                         </div>
                         <div class="row">
                             <div class="d-flex justify-content-center p-2 p-md-3 p-lg-4">
-                                <form id="filter-dropdown" class="col-9 col-sm-10 col-md-7 col-lg-6">
+                                <form id="filter" class="col-9 col-sm-10 col-md-7 col-lg-6">
+                                    <input type="search" autocomplete="off" class="form-control mb-2 mb-md-3 mb-lg-4" id="searchbox">
+                                    
+                                
                                     <select name="months" id="months" class="form-select">
                                         <option value="select-month">Select Month</option>
                                         <option value="1">January</option>
@@ -61,6 +64,7 @@
                     </div>
                     <div class="container p-2 p-md-3 p-lg-4">
                         <ul id="creature-list" class="list-group row align-items-center mx-1 pb-1 pb-md-2 pb-lg-3">
+                            
                             <!-- creature list here -->
                         </ul>
                         

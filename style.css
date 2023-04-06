@@ -7,7 +7,14 @@
 
 
 
-/* heading media query */
+/* font-size media queies */
+
+@media (max-width:320px) {
+    ::placeholder {
+        font-size:0.8rem;
+    }
+}
+
 
 @media (max-width: 767px) {
     header h1 {
@@ -21,10 +28,8 @@
     div p {
         font-size: 0.8rem;
     }
-
-
-
 }
+
 
 @media (min-width:768px) {
     header h1 {
@@ -40,6 +45,7 @@
         font-size:2.5rem;
     }
 }
+
 
 @media (min-width:992px) {
     header h1 {
@@ -120,6 +126,10 @@ div h5 {
     border:thin solid rgb(33, 137, 86);
 }
 
+#clear {
+    background-color:rgba(255, 255, 255, 0.63);
+}
+
 #months {
     border:thin solid rgb(33, 137, 86);
     color:rgb(33, 137, 86);
@@ -132,14 +142,26 @@ div h5 {
     box-shadow:none;
     color:rgb(33, 137, 86);
     outline:0;
-
 }
 
+#searchbox {
+    border:thin solid rgb(33, 137, 86);
+    color:rgb(33, 137, 86);
+    background-color:rgba(255, 255, 255, 0.63);
+}
 
+#searchbox:focus {
+    border:medium solid rgb(33, 137, 86);
+    box-shadow:none;
+    color:rgb(33, 137, 86);
+    outline:0;
+}
 
 details.collapsed {
     color: rgb(33, 137, 86);
     border:thin solid rgb(33, 137, 86);
+    outline:thin solid rgb(33, 137, 86);
+    border-radius:3px;
     background-color:rgba(255, 255, 255, 0.63);
 }
 
@@ -147,6 +169,8 @@ details.collapsed {
 details.expanded {
     color: rgb(33, 137, 86);
     border:thin solid rgb(33, 137, 86);
+    outline:thin solid rgb(33, 137, 86);
+    border-radius:3px;
     background-color:rgba(255, 255, 255, 0.63);
 }
 
@@ -155,6 +179,7 @@ details.expanded summary {
     font-weight:bold;
     background-color:rgba(255, 255, 255, 0.63);
 }
+
 
 
 div.card {

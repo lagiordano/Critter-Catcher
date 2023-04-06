@@ -5,6 +5,11 @@ function initialize () {
     const ul = document.querySelector("#creature-list");
     const creatureButtons = document.querySelector("#creature-buttons");
     const dropDown = document.querySelector("#months");
+    const searchbox = document.querySelector("#searchbox");
+    const months = document.querySelector("#months");
+    months.disabled = true;
+    searchbox.disabled = true;
+    searchbox.setAttribute("placeholder", "Pick a category before filtering...");
     let fish;
     let sea;
     let bugs;
@@ -46,6 +51,9 @@ function initialize () {
     // Start building list from creature buttons
     creatureButtons.addEventListener("click", e => {
         if (e.target.tagName === "BUTTON") {
+            searchbox.disabled = false;
+            months.disabled = false;
+            searchbox.setAttribute("placeholder", "Search for a creature...")
             ul.textContent = "";
             let type = e.target.textContent;
             type = type.toLowerCase();
@@ -75,6 +83,8 @@ function initialize () {
         }
 
         document.querySelector("form").reset();
+
+        
     });
 
 
@@ -89,14 +99,35 @@ function initialize () {
 
             dropDown.addEventListener("change", () => {
                 ul.textContent = "";
+                searchbox.value = "";
                 let selected = dropDown.value;
                 let filteredObject = filterList(creaturesData, selected);
                 populateList(filteredObject);
             });
 
 
+            //Search bar
+            
+            searchbox.addEventListener("input", (e) => {
+                let items = document.querySelectorAll("details");
+                let search = e.target.value.toLowerCase();
+                items.forEach(item => {
+                    const name = item.firstChild.textContent.toLowerCase();
+                    const isVisible = name.includes(search);
+                    item.classList.toggle("d-none", !isVisible);
+                    
+                });
+
+
+            });
+            
+            
+            
+
             
     };
+
+    
 
     
     // Populates creature list
@@ -148,6 +179,7 @@ function initialize () {
                 };
             });
 
+            
 
             // // Wish list listener
             details.addEventListener("click", (e) => {
@@ -244,7 +276,7 @@ function initialize () {
         p3.classList.add("card-text", "text-center");
 
         image.setAttribute("src", creatureInfo.imageURL);
-        image.style.width = "50%";
+        image.style.width = "45%";
         name.innerText = creatureInfo.name.toUpperCase();
         p1.innerText = `Months: ${creatureInfo.month}`;
         p2.innerText = `Times: ${creatureInfo.time}`;
