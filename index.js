@@ -5,77 +5,106 @@ function initialize () {
     const ul = document.querySelector("#creature-list");
     const creatureButtons = document.querySelector("#creature-buttons");
     const dropDown = document.querySelector("#months");
+    let fish;
+    let sea;
+    let bugs;
     
     
+    // Fetch requests for three creature types 
+    fetch(`https://acnhapi.com/v1/fish`)
+    .then(res => res.json())
+    .then(fishData => {
+        fish = {...fishData};
+    })
+    .catch( () => {
+        alert("Sorry, there's been an issue loading the creatures for you!");
+    });
+
     
-    
+    fetch(`https://acnhapi.com/v1/sea`)
+    .then(res => res.json())
+    .then(seaData => {
+        sea = {...seaData};
+    })
+    .catch( () => {
+        alert("Sorry, there's been an issue loading the creatures for you!");
+    });
+
+
+   
+    fetch(`https://acnhapi.com/v1/bugs`)
+    .then(res => res.json())
+    .then(bugsData => {
+        bugs = {...bugsData};
+    })
+    .catch( () => {
+        alert("Sorry, there's been an issue loading the creatures for you!");
+    });
+
     
 
-    // Create list by category
+    // Start building list from creature buttons
     creatureButtons.addEventListener("click", e => {
         if (e.target.tagName === "BUTTON") {
             ul.textContent = "";
             let type = e.target.textContent;
-            initiateList(type);
+            type = type.toLowerCase();
+
+            if (type === "fish") {
+                initiateList(fish);
+            };
+
+            if(type === "sea") {
+                initiateList(sea);
+            };
+
+            if (type === "bugs")
+                initiateList(bugs);
 
         };
 
+        // Code to have button "selected"
         let btnGroup = e.target.closest('.btn-group');
         let siblings = btnGroup.querySelectorAll("button");
         for (let sibling of siblings) {
             if (sibling === e.target) {
                 sibling.classList.add("btn-selected");
-                console.log("selected");
             } else {
                 sibling.classList.remove("btn-selected");
-                console.log("not selected");
             }
         }
 
-
         document.querySelector("form").reset();
     });
+
+
+    
     
 
-    // Fetch data and calls populateList function 
-    function initiateList (type) {
-        type = type.toLowerCase();
-        fetch(`https://acnhapi.com/v1/${type}`)
-        .then(res => res.json())
-        .then(creatureData => {
-            let categoryObject = {...creatureData};
-
-        
-            populateList(categoryObject);
+    // Populate list and add event listener for filter
+    function initiateList (creaturesData) {
+       
+            populateList(creaturesData);
 
 
             dropDown.addEventListener("change", () => {
                 ul.textContent = "";
                 let selected = dropDown.value;
-                let filteredObject = filterList(categoryObject, selected);
+                let filteredObject = filterList(creaturesData, selected);
                 populateList(filteredObject);
             });
 
-        })
-        .catch( () => {
-            alert("Sorry, there's been an issue loading those creatures!");
-        });
-        
-        
+
+            
     };
 
     
-    // Populates list
-    function populateList (categoryObject) {
-        // console.log(categoryObject);
-        for (let item in categoryObject) {
-            let creatureObject = {...categoryObject[item]};
-
-            // console.log(creatureObject);
+    // Populates creature list
+    function populateList (creaturesData) {
+        for (let item in creaturesData) {
+            let creatureObject = {...creaturesData[item]};
 
             let creatureInfo = generateObject(creatureObject);
-
-            // console.log(creatureInfo);
 
             let details = document.createElement("details");
             details.classList.add("collapsed", "list-group-item", "col-12", "col-sm-11", "col-md-9", "col-lg-8", "col-xl-7");  
@@ -88,10 +117,10 @@ function initialize () {
             cardDiv.classList.add("card-deck", "d-flex", "justify-content-center");
             cardDiv.innerHTML = renderCard(creatureInfo)
 
-
             details.appendChild(summary);
             details.appendChild(cardDiv);
             ul.appendChild(details);
+
 
             // Add buttons to each creature <details>
             let buttonDiv = document.createElement("div");
@@ -110,10 +139,6 @@ function initialize () {
             goToBtn.classList.add("btn", "btn-success", "align-items-center", "mx-1", "mx-md-2", "mx-lg-3");
             
 
-            // let card = querySelector("#grab-card");
-
-            // console.log(card);
-
             // Toggle event listener to change styling when details are open
             details.addEventListener("toggle", () => {
                 if (details.classList.contains("collapsed")) {
@@ -123,8 +148,8 @@ function initialize () {
                 };
             });
 
-            // // Wish list 
 
+            // // Wish list listener
             details.addEventListener("click", (e) => {
                 wishListGenerator(e, creatureInfo);
             });
@@ -181,8 +206,8 @@ function initialize () {
             
         };
 
-        // create object holding creature data for card
 
+        // Create object holding creature data for card
         let creatureInfo = {
             name: creatureObject["name"]["name-EUen"],
             imageURL: creatureObject["icon_uri"],
@@ -196,85 +221,55 @@ function initialize () {
     };
 
 
+    // Render card info to be used by details and wish list
 
-        function renderCard (creatureInfo) {
+    function renderCard (creatureInfo) {
 
-            
+        const returnDiv = document.createElement("div");
+        const div = document.createElement("div");
+        const cardBody = document.createElement("div");
+        const image = document.createElement("img");
+        const name = document.createElement("h4");
+        const p1 = document.createElement("p");
+        const p2 = document.createElement("p");
+        const p3 = document.createElement("p");
 
-            const returnDiv = document.createElement("div");
-            const div = document.createElement("div");
-            const cardBody = document.createElement("div");
-            const image = document.createElement("img");
-            const name = document.createElement("h4");
-            const p1 = document.createElement("p");
-            const p2 = document.createElement("p");
-            const p3 = document.createElement("p");
+        div.classList.add("card", "col-11", "col-sm-10", "col-md-9", "col-lg-8", "col-xl-7", "align-items-center");
+        image.classList.add("card-img-top");
+        cardBody.classList.add("card-body");
+        
+        name.classList.add("card-title", "text-center");
+        p1.classList.add("card-text", "text-center");
+        p2.classList.add("card-text", "text-center");
+        p3.classList.add("card-text", "text-center");
 
-            
-            div.classList.add("card", "col-11", "col-sm-10", "col-md-9", "col-lg-8", "col-xl-7", "align-items-center");
-            image.classList.add("card-img-top");
-            cardBody.classList.add("card-body");
-            
-            name.classList.add("card-title", "text-center");
-            p1.classList.add("card-text", "text-center");
-            p2.classList.add("card-text", "text-center");
-            p3.classList.add("card-text", "text-center");
+        image.setAttribute("src", creatureInfo.imageURL);
+        image.style.width = "50%";
+        name.innerText = creatureInfo.name.toUpperCase();
+        p1.innerText = `Months: ${creatureInfo.month}`;
+        p2.innerText = `Times: ${creatureInfo.time}`;
+        p3.innerText = `Sells for: $${creatureInfo.price}`
 
+        cardBody.appendChild(name);
+        cardBody.appendChild(p1);
+        cardBody.appendChild(p2);
+        cardBody.appendChild(p3);
+        div.appendChild(image);
+        div.appendChild(cardBody);
+        returnDiv.appendChild(div);
 
-            image.setAttribute("src", creatureInfo.imageURL);
-            image.style.width = "50%";
-            name.innerText = creatureInfo.name.toUpperCase();
-            p1.innerText = `Months: ${creatureInfo.month}`;
-            p2.innerText = `Times: ${creatureInfo.time}`;
-            p3.innerText = `Sells for: $${creatureInfo.price}`
-
-            
-            cardBody.appendChild(name);
-            cardBody.appendChild(p1);
-            cardBody.appendChild(p2);
-            cardBody.appendChild(p3);
-            div.appendChild(image);
-            div.appendChild(cardBody);
-            returnDiv.appendChild(div);
-
-            return returnDiv.innerHTML;
-            
-        };
-
-
-       
-
-    //     return `
-    //     <summary class="summary text-capitalize pb-2">${creatureObject["name"]["name-EUen"]}</summary>
-    //         <div class=" card-deck d-flex justify-content-center">
-    //             <div id="card-sizes" class="card col-11 col-sm-10 col-md-9 col-lg-8 col-xl-7">
-    //                 <div class="card-img-top d-flex justify-content-center">
-    //                     <img src="${creatureObject["icon_uri"]}">
-    //                 </div>
-    //                 <div class="card-body">
-    //                     <h4 class="card-title text-center">${creatureObject["name"]["name-EUen"].toUpperCase()}</h4>
-    //                     <p class="card-text text-center">Months: ${monthAvailable}</p>
-    //                     <p class="card-text text-center">Times: ${timeAvailable}</p>
-    //                     <p class="card-text text-center">Sells for: $${creatureObject["price"]}</p>
-    //                     <div class="d-flex justify-content-center">
-    //                         <button class="btn btn-outline-success align-items-center addInfo mx-1 mx-md-2 mx-lg-3 list-btn" >Add to List</button>
-    //                         <button class="btn btn-success align-items-center mx-md-2 mx-lg-3 to-list"><a class="text-decoration-none text-white" href="#heading1">Go to List</a></button>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         </div>        
-    //     `
-    //     "col-12", "col-sm-11", "col-md-9", "col-lg-8", "col-xl-7"
-    // };
+        return returnDiv.innerHTML;
+        
+    };
 
 
 
     // Filter by Month
-    function filterList (categoryObject, selected) {
+    function filterList (creaturesData, selected) {
         let filtered = {};
         selected = parseInt(selected, 10);
-        for (let item in categoryObject) {
-            creatureObject = {...categoryObject[item]};
+        for (let item in creaturesData) {
+            creatureObject = {...creaturesData[item]};
             let monthArray = creatureObject["availability"]["month-array-southern"];
             if(monthArray.indexOf(selected) !== -1) {
                 filtered[item] = creatureObject;
@@ -284,61 +279,45 @@ function initialize () {
     };
 
 
+
+
     //Add and remove form wish list
     function wishListGenerator(e, creatureInfo) {
-        
 
         if (e.target.id === "add-card-btn") {
             let addBtn = e.target;
             addBtn.disabled = true;
 
             document.querySelector("#empty-list").style.display = "none";
-
             let findContainer = document.querySelector("#find-container");
-            
-            // findContainer.classList.add("card-deck");
 
+
+            //Add card to wish list container
             let div = document.createElement("div");
             div.classList.add("col", "d-flex", "justify-content-center");
             div.innerHTML = renderCard(creatureInfo);
-            console.log(div);
             let card = div.querySelector(".card");
             card.classList.remove("col-sm-10", "col-md-9", "col-lg-8", "col-xl-7");
             card.classList.add("mb-3", "mb-md-4", "mb-lg-5");
             findContainer.appendChild(div);
 
 
+            // Found button
             let foundDiv = document.createElement("div");
             let foundBtn = document.createElement("button");
             foundDiv.classList.add("d-flex", "justify-content-center", "p-3");
             foundBtn.classList.add("btn", "btn-outline-success", "align-items-center", "mx-1", "mx-md-2", "mx-lg-3");
-            foundBtn.textContent = "Found!";
+            foundBtn.textContent = "FOUND";
             foundDiv.appendChild(foundBtn);
             card.appendChild(foundDiv);
             
             foundBtn.addEventListener("click", () => {
                 div.remove();
                 addBtn.disabled = false;
-            })
+            });
             
-            
-        }
+        };
 
-        // if (e.target.classList.contains("list-btn")) {
-        //    
-        //     catchCard.classList.add("card", "col-10", "col-md-6", "col-lg-4");
-        //     catchCard.removeChild(catchCard.firstElementChild);
-        //     findContainer.appendChild(catchCard);
-        //     catchCard.querySelector("#card-sizes").classList.remove("card", "col-11", "col-sm-10", "col-md-9", "col-lg-8", "col-xl-7");
-        //     catchCard.querySelector(".to-list").remove();
-        //     catchCard.querySelector(".list-btn").classList.replace("addInfo", "found-btn");
-        //     let foundButton = catchCard.querySelector(".found-btn");
-        //     foundButton.textContent = "Found!";
-        //     foundButton.addEventListener("click", () => {
-        //         catchCard.remove();
-        //         e.target.disabled = false;
-        //     });
-        // };
     };
 
 
