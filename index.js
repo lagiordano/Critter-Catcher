@@ -119,10 +119,8 @@ function initialize () {
                 });
 
 
+    
             });
-            
-            
-            
 
             
     };
