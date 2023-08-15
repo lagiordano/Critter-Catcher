@@ -18,7 +18,7 @@ visit https://lagiordano.github.io/Critter-Catcher/
 
 ## Contributing 
 
-Bug reports and pull requests are welcome at https://github.com/lagiordano/Critter-Catcher. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](). 
+Bug reports and pull requests are welcome at https://github.com/lagiordano/Critter-Catcher. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/lagiordano/Critter-Catcher/blob/main/CODE_OF_CONDUCT.md). 
 
 
 ## License 
